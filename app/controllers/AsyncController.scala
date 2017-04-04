@@ -33,7 +33,7 @@ class AsyncController @Inject() (actorSystem: ActorSystem)(implicit exec: Execut
   }
   def sendToQueue = Action {
     SendMessageToQueue("Another Message")
-    Ok("PUSH!")
+    Ok("PUSHED!")
 
   }
 
