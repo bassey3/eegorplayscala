@@ -31,6 +31,13 @@ class AsyncController @Inject() (actorSystem: ActorSystem)(implicit exec: Execut
   def message = Action.async {
     getFutureMessage(1.second).map { msg => Ok(msg) }
   }
+  def sendToQueue = Action {
+    SendMessageToQueue("Another Message")
+    Ok("PUSH!")
+
+  }
+
+
 
   private def getFutureMessage(delayTime: FiniteDuration): Future[String] = {
     val promise: Promise[String] = Promise[String]()
@@ -38,4 +45,7 @@ class AsyncController @Inject() (actorSystem: ActorSystem)(implicit exec: Execut
     promise.future
   }
 
+  private def SendMessageToQueue(message: String): String = {
+  return "Added to Queue"
+  }
 }
