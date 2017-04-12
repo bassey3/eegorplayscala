@@ -2,8 +2,11 @@ package controllers
 
 import akka.actor.ActorSystem
 import javax.inject._
+
 import play.api._
 import play.api.mvc._
+import plugins.IronMqConsumer
+
 import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.concurrent.duration._
 
@@ -28,6 +31,8 @@ class AsyncController @Inject() (actorSystem: ActorSystem)(implicit exec: Execut
    * will be called when the application receives a `GET` request with
    * a path of `/message`.
    */
+  var ironmq = new IronMqConsumer()
+
   def message = Action.async {
     getFutureMessage(1.second).map { msg => Ok(msg) }
   }
@@ -46,6 +51,7 @@ class AsyncController @Inject() (actorSystem: ActorSystem)(implicit exec: Execut
   }
 
   private def SendMessageToQueue(message: String): String = {
-  return "Added to Queue"
+  ironmq.sendMessage(message)
+    return "Added to Queue"
   }
 }
