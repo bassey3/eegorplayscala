@@ -5,4 +5,11 @@ package services
   */
 class BulkSave {
 
+  import scala.concurrent.{ ExecutionContext, Future }
+  import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver }
+  import reactivemongo.bson.{BSONDocumentWriter, BSONDocumentReader, Macros, document}
+
+  object GetStarted {
+
+  }
 }
